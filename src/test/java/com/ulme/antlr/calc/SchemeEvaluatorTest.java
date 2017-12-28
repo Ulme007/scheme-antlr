@@ -19,7 +19,7 @@ public class SchemeEvaluatorTest {
         return Arrays.asList(new Object[][]{
                 {"Display 1", "(display (1))", "1"},
                 {"Display 2", "(display (2))", "2"},
-//                {"Display 1+2", "(display (+ 1 2))", "2"},
+                //                {"Display 1+2", "(display (+ 1 2))", "2"},
         });
     }
 
@@ -36,9 +36,11 @@ public class SchemeEvaluatorTest {
     @Test
     public void test() throws Exception {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(bout);
-        SchemeEvaluator schemeEvaluator = new SchemeEvaluator(printStream);
-        schemeEvaluator.evaluateExpression(expression);
+
+        try (PrintStream printStream = new PrintStream(bout)) {
+            SchemeEvaluator schemeEvaluator = new SchemeEvaluator(printStream);
+            schemeEvaluator.evaluateExpression(expression);
+        }
 
         assertEquals(description, result, bout.toString());
     }

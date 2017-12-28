@@ -14,15 +14,6 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class SchemeEvaluatorTest {
 
-    @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-                {"Display 1", "(display (1))", "1"},
-                {"Display 2", "(display (2))", "2"},
-                //                {"Display 1+2", "(display (+ 1 2))", "2"},
-        });
-    }
-
     private String description;
     private String expression;
     private String result;
@@ -31,6 +22,15 @@ public class SchemeEvaluatorTest {
         this.description = description;
         this.expression = expression;
         this.result = result;
+    }
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {"Display 1", "(display (1))", "1"},
+                {"Display 2", "(display (2))", "2"},
+                //                {"Display 1+2", "(display (+ 1 2))", "2"},
+        });
     }
 
     @Test

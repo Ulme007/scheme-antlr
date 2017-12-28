@@ -33,7 +33,7 @@ public class SchemeEvaluator {
         CommonTokenStream commonTokenStream = new CommonTokenStream(calcLexer);
         SchemeParser calcParser = new SchemeParser(commonTokenStream);
 
-        ParseTree parseTree = calcParser.programm();
+        ParseTree parseTree = calcParser.prog();
         return new MyVisitor(printStream).visit(parseTree);
     }
 }

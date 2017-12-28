@@ -14,14 +14,14 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitProgramm(SchemeParser.ProgrammContext ctx) {
+    public Long visitProg(SchemeParser.ProgContext ctx) {
         System.out.println("visitProgramm");
-        return super.visitProgramm(ctx);
+        return super.visitProg(ctx);
     }
 
     @Override
     public Long visitPrint(SchemeParser.PrintContext ctx) {
-        Long value = visit(ctx.expression());
+        Long value = visit(ctx.expr());
         out.print(value);
         return null;
     }

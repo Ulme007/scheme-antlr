@@ -1,12 +1,12 @@
 grammar Scheme;
 
-programm: expression+
-        ;
+prog: expr+
+    ;
 
-expression: '(' PRINT expression ')'    #Print
-          | '(' number=NUMBER ')'       #Number
-          | '(' '+' expression ')'      #Plus
-          ;
+expr: '(' PRINT expr ')'        #Print
+    | '(' number=NUMBER ')'     #Number
+    | '(' '+' expr ')'          #Plus
+    ;
 
 PRINT: 'print';
 NUMBER: [0-9]+;

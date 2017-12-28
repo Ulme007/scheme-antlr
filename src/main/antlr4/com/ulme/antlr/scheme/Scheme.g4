@@ -3,16 +3,20 @@ grammar Scheme;
 prog: expr+
     ;
 
-expr: '(' '*' expr+ ')'         #Mult
-    | '(' '/' expr+ ')'         #Div
-    | '(' '+' expr+ ')'         #Plus
-    | '(' '-' expr+ ')'         #Minus
-    | number=NUMBER             #Number
-    | '(' DISPLAY expr ')'      #Display
+expr: '(' '*' expr+ ')'             #Mult
+    | '(' '/' expr+ ')'             #Div
+    | '(' '+' expr+ ')'             #Plus
+    | '(' '-' expr+ ')'             #Minus
+    | number=NUMBER                 #Number
+    | varName=IDENTIFIER            #Identifier
+    | '(' DISPLAY expr ')'          #Display
+    | '(' DEFINE varName=IDENTIFIER expr ')'  #Define
     ;
 
 DISPLAY: 'display';
 
-NUMBER: ('-')? DIGIT+;
-DIGIT: [0-9];
+DEFINE: 'define';
+
+IDENTIFIER: [a-zA-Z][a-zA-Z0-9]*;
+NUMBER: ('-')? [0-9]+;
 WHITESPACE: [ \t\n\r]+ -> skip;

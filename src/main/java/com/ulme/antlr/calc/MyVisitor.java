@@ -4,14 +4,32 @@ import com.ulme.antlr.scheme.SchemeBaseVisitor;
 import com.ulme.antlr.scheme.SchemeParser;
 
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyVisitor extends SchemeBaseVisitor<Long> {
 
     private PrintStream out;
+    private Map<String, Long> env = new HashMap<>();
 
-    public MyVisitor(PrintStream out) {
+    MyVisitor(PrintStream out) {
         this.out = out;
+    }
+
+    @Override
+    public Long visitIdentifier(SchemeParser.IdentifierContext ctx) {
+        String varName = ctx.varName.getText();
+        Long varValue = env.get(varName);
+        return varValue;
+    }
+
+    @Override
+    public Long visitDefine(SchemeParser.DefineContext ctx) {
+        String varName = ctx.varName.getText();
+        Long varValue = visit(ctx.expr());
+        env.put(varName, varValue);
+        return null;
     }
 
     @Override

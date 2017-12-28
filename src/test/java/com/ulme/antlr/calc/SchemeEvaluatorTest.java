@@ -36,6 +36,10 @@ public class SchemeEvaluatorTest {
                 {"6 / 3 = 2",               "(display (/ 6 3))",    "2"},
                 {"(1 + 2) * (3 + 4) = 21",  "(display (* (+ 1 2) (+ 3 4)))", "21"},
                 {"(define a 1)",  "(define a 1)(display a)", "1"},
+                {"Define two variables and add these",
+                        "(define a 1)" +
+                        "(define b 2)" +
+                        "(display (+ a b))", "3"},
         });
     }
 

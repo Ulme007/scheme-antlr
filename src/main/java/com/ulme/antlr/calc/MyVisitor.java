@@ -39,7 +39,6 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
 
     @Override
     public Long visitProg(SchemeParser.ProgContext ctx) {
-        System.out.println("visitProgramm");
         return super.visitProg(ctx);
     }
 

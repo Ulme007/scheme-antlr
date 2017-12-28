@@ -27,19 +27,22 @@ public class SchemePrimitiveTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"Display positive number 1",   "(display 1)",  "1"},
-                {"Display negative number -2",  "(display -2)", "-2"},
-                {"1 + 2 = 3",               "(display (+ 1 2))",    "3"},
-                {"1 + 2 + 3 = 6",           "(display (+ 1 2 3))",  "6"},
-                {"2-1=-1",                  "(display (- 1 2))",    "-1"},
-                {"2 * 3 = 6",               "(display (* 2 3))",    "6"},
-                {"6 / 3 = 2",               "(display (/ 6 3))",    "2"},
-                {"(1 + 2) * (3 + 4) = 21",  "(display (* (+ 1 2) (+ 3 4)))", "21"},
-                {"(define a 1)",  "(define a 1)(display a)", "1"},
+                {"Display positive number 1", "(display 1)", "1"},
+                {"Display negative number -2", "(display -2)", "-2"},
+                {"(+ 1 2)", "(display (+ 1 2))", "3"},
+                {"(+ 1 2 3)", "(display (+ 1 2 3))", "6"},
+                {"(- 1 2)", "(display (- 1 2))", "-1"},
+                {"(- 1 2 3)", "(display (- 1 2 3))", "-4"},
+                {"(* 2 3)", "(display (* 2 3))", "6"},
+                {"(* 2 3 4)", "(display (* 2 3 4))", "24"},
+                {"(/ 6 3)", "(display (/ 6 3))", "2"},
+                {"(/ 16 4 2)", "(display (/ 16 4 2))", "2"},
+                {"(* (+ 1 2) (+ 3 4)))", "(display (* (+ 1 2) (+ 3 4)))", "21"},
+                {"Define a variable", "(define a 1)(display a)", "1"},
                 {"Define two variables and add these",
                         "(define a 1)" +
-                        "(define b 2)" +
-                        "(display (+ a b))", "3"},
+                                "(define b 2)" +
+                                "(display (+ a b))", "3"},
         });
     }
 

@@ -8,6 +8,8 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 
 public class MyVisitor extends SchemeBaseVisitor<Long> {
 
@@ -65,7 +67,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     @Override
     public Long visitIdentifier(SchemeParser.IdentifierContext ctx) {
         String varName = ctx.varName.getText();
-        if (! env.containsKey(varName)) {
+        if (!env.containsKey(varName)) {
             throw new UndeclaredVariableException(ctx.varName);
         }
         return env.get(varName);
@@ -96,51 +98,34 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
 
     @Override
     public Long visitMult(SchemeParser.MultContext ctx) {
-        Long result = 0L;
-        List<SchemeParser.ExpressionContext> expr = ctx.expression();
-        if (expr.size() > 0) {
-            result = visit(expr.get(0));
-            for (int i = 1; i < expr.size(); i++) {
-                result *= visit(expr.get(i));
-            }
-        }
-        return result;
+        BinaryOperator<Long> mult = (x, y) -> x * y;
+        return processOperator(ctx.expression(), mult);
     }
 
     @Override
     public Long visitDiv(SchemeParser.DivContext ctx) {
-        Long result = 0L;
-        List<SchemeParser.ExpressionContext> expr = ctx.expression();
-        if (expr.size() > 0) {
-            result = visit(expr.get(0));
-            for (int i = 1; i < expr.size(); i++) {
-                result /= visit(expr.get(i));
-            }
-        }
-        return result;
+        BinaryOperator<Long> div = (x, y) -> x / y;
+        return processOperator(ctx.expression(), div);
     }
 
     @Override
     public Long visitPlus(SchemeParser.PlusContext ctx) {
-        Long result = 0L;
-        List<SchemeParser.ExpressionContext> expr = ctx.expression();
-        if (expr.size() > 0) {
-            result = visit(expr.get(0));
-            for (int i = 1; i < expr.size(); i++) {
-                result += visit(expr.get(i));
-            }
-        }
-        return result;
+        BinaryOperator<Long> add = (x, y) -> x + y;
+        return processOperator(ctx.expression(), add);
     }
 
     @Override
     public Long visitMinus(SchemeParser.MinusContext ctx) {
+        BinaryOperator<Long> minus = (x, y) -> x - y;
+        return processOperator(ctx.expression(), minus);
+    }
+
+    private Long processOperator(List<SchemeParser.ExpressionContext> expr, BiFunction<Long, Long, Long> biFunc) {
         Long result = 0L;
-        List<SchemeParser.ExpressionContext> expr = ctx.expression();
         if (expr.size() > 0) {
             result = visit(expr.get(0));
             for (int i = 1; i < expr.size(); i++) {
-                result -= visit(expr.get(i));
+                result = biFunc.apply(result, visit(expr.get(i)));
             }
         }
         return result;

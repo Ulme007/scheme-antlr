@@ -19,6 +19,39 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     }
 
     @Override
+    public Long visitFunctionCallExpression(SchemeParser.FunctionCallExpressionContext ctx) {
+        String functionName = getFunctionName(ctx.funcName.getText(), ctx.paramNames.size());
+        SchemeParser.FunctionDefinitionContext functionDefinitionContext = functions.get(functionName);
+        if (functionDefinitionContext == null) {
+            throw new UndefinedFunctionException(ctx.funcName, functionName);
+        }
+
+        //save global variables map
+        Map<String, Long> oldEnv = env;
+
+        // create a local variables map
+        env = new HashMap<>();
+
+        // set variables from function call
+//        List<SchemeParser.ExprContext> expressions = ctx.paramNames.arguments.expressions;
+//        List<SchemeParser.VariableDefinitionContext> declarations = functionDefinitionContext.params.declarations;
+//        for (int i = 0; i < declarations.size(); i++) {
+//            SchemeParser.VariableDefinitionContext varDeclarationContext = declarations.get(i);
+//            String variableName = varDeclarationContext.varName.getText();
+//            Long value = visit(expressions.get(i));
+//            env.put(variableName, value);
+//        }
+//
+//        visit(functionDefinitionContext.);
+//        Long result = visit(functionDefinitionContext.returnValue);
+
+        // set back global variables map
+        env = oldEnv;
+
+        return 0L;
+    }
+
+    @Override
     public Long visitFunctionDefinition(SchemeParser.FunctionDefinitionContext ctx) {
         String functionName = getFunctionName(ctx.funcName.getText(), ctx.paramNames.size());
         if (functions.containsKey(functionName)) {

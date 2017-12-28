@@ -21,6 +21,7 @@ expr: '(' '*' expr+ ')'                         #Mult
     | '(' DISPLAY expr ')'                      #Display
     | '(' DEFINE varName=IDENTIFIER expr ')'    #VariableDefinition
     | '(' DEFINE '(' funcName=IDENTIFIER (paramNames+=IDENTIFIER)* ')' expr+ ')'  #FunctionDefinition
+    | '(' funcName=IDENTIFIER '(' (paramNames+=NUMBER)* ')' ')'               #FunctionCallExpression
     ;
 
 DISPLAY: 'display';

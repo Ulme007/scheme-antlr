@@ -28,11 +28,53 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitPlus(SchemeParser.PlusContext ctx) {
-        List<SchemeParser.ExprContext> expr = ctx.expr();
+    public Long visitMult(SchemeParser.MultContext ctx) {
         Long result = 0L;
-        for (SchemeParser.ExprContext subCtx : expr) {
-            result += visit(subCtx);
+        List<SchemeParser.ExprContext> expr = ctx.expr();
+        if (expr.size() > 0) {
+            result = visit(expr.get(0));
+            for (int i = 1; i < expr.size(); i++) {
+                result *= visit(expr.get(i));
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Long visitDiv(SchemeParser.DivContext ctx) {
+        Long result = 0L;
+        List<SchemeParser.ExprContext> expr = ctx.expr();
+        if (expr.size() > 0) {
+            result = visit(expr.get(0));
+            for (int i = 1; i < expr.size(); i++) {
+                result /= visit(expr.get(i));
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Long visitPlus(SchemeParser.PlusContext ctx) {
+        Long result = 0L;
+        List<SchemeParser.ExprContext> expr = ctx.expr();
+        if (expr.size() > 0) {
+            result = visit(expr.get(0));
+            for (int i = 1; i < expr.size(); i++) {
+                result += visit(expr.get(i));
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Long visitMinus(SchemeParser.MinusContext ctx) {
+        Long result = 0L;
+        List<SchemeParser.ExprContext> expr = ctx.expr();
+        if (expr.size() > 0) {
+            result = visit(expr.get(0));
+            for (int i = 1; i < expr.size(); i++) {
+                result -= visit(expr.get(i));
+            }
         }
         return result;
     }

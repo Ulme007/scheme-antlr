@@ -3,7 +3,10 @@ grammar Scheme;
 prog: expr+
     ;
 
-expr: '(' '+' expr+ ')'         #Plus
+expr: '(' '*' expr+ ')'         #Mult
+    | '(' '/' expr+ ')'         #Div
+    | '(' '+' expr+ ')'         #Plus
+    | '(' '-' expr+ ')'         #Minus
     | number=NUMBER             #Number
     | '(' DISPLAY expr ')'      #Display
     ;

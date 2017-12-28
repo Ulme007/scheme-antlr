@@ -18,6 +18,6 @@ public class SchemeFunctionErrorTest {
                     );
                 }
         ).isInstanceOf(FunctionAlreadyDefinedException.class)
-         .hasMessageContaining("1:38 function already defined: <sum>");
+         .hasMessageContaining("1:38 function already defined: <sum(2)>");
     }
 }

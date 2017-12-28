@@ -22,7 +22,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     public Long visitFunctionDefinition(SchemeParser.FunctionDefinitionContext ctx) {
         String functionName = getFunctionName(ctx.funcName.getText(), ctx.paramNames.size());
         if (functions.containsKey(functionName)) {
-            throw new FunctionAlreadyDefinedException(ctx.funcName);
+            throw new FunctionAlreadyDefinedException(ctx.funcName, functionName);
         }
         functions.put(functionName, ctx);
 

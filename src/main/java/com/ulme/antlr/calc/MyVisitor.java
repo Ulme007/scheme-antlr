@@ -19,7 +19,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitFunctionCallExpression(SchemeParser.FunctionCallExpressionContext ctx) {
+    public Long visitFunctionCall(SchemeParser.FunctionCallContext ctx) {
         String functionName = getFunctionName(ctx.funcName.getText(), ctx.paramNames.size());
         SchemeParser.FunctionDefinitionContext functionDefinitionContext = functions.get(functionName);
         if (functionDefinitionContext == null) {

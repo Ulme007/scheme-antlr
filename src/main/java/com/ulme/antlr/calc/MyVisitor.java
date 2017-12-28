@@ -12,9 +12,21 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
 
     private PrintStream out;
     private Map<String, Long> env = new HashMap<>();
+    private Map<String, SchemeParser.FunctionDefinitionContext> functions = new HashMap<>();
 
     MyVisitor(PrintStream out) {
         this.out = out;
+    }
+
+    @Override
+    public Long visitFunctionDefinition(SchemeParser.FunctionDefinitionContext ctx) {
+        String functionName = getFunctionName(ctx.funcName.getText(), ctx.paramNames.size());
+        if (functions.containsKey(functionName)) {
+            throw new FunctionAlreadyDefinedException(ctx.funcName);
+        }
+        functions.put(functionName, ctx);
+
+        return null;
     }
 
     @Override
@@ -104,5 +116,9 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     @Override
     public Long visitNumber(SchemeParser.NumberContext ctx) {
         return Long.parseLong(ctx.number.getText());
+    }
+
+    private String getFunctionName(String functionName, int parameterSize) {
+        return functionName + "(" + parameterSize + ")";
     }
 }

@@ -3,6 +3,15 @@ grammar Scheme;
 prog: expr+
     ;
 
+/*
+(define (sum x1 x2)
+(+ x1 x2))
+
+(define (prozedurname attribut1 attribut2)
+(Anweisung1)
+(Anweisung2))
+*/
+
 expr: '(' '*' expr+ ')'                         #Mult
     | '(' '/' expr+ ')'                         #Div
     | '(' '+' expr+ ')'                         #Plus
@@ -11,6 +20,7 @@ expr: '(' '*' expr+ ')'                         #Mult
     | varName=IDENTIFIER                        #Identifier
     | '(' DISPLAY expr ')'                      #Display
     | '(' DEFINE varName=IDENTIFIER expr ')'    #VariableDefinition
+    | '(' DEFINE '(' funcName=IDENTIFIER (paramNames+=IDENTIFIER)* ')' expr+ ')'  #FunctionDefinition
     ;
 
 DISPLAY: 'display';

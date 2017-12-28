@@ -3,11 +3,11 @@ grammar Scheme;
 prog: expr+
     ;
 
-expr: '(' PRINT expr ')'        #Print
+expr: '(' DISPLAY expr ')'      #Display
     | '(' number=NUMBER ')'     #Number
     | '(' '+' expr ')'          #Plus
     ;
 
-PRINT: 'print';
+DISPLAY: 'display';
 NUMBER: [0-9]+;
 WHITESPACE: [ \t\n\r]+ -> skip;

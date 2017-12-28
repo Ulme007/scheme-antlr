@@ -20,7 +20,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitPrint(SchemeParser.PrintContext ctx) {
+    public Long visitDisplay(SchemeParser.DisplayContext ctx) {
         Long value = visit(ctx.expr());
         out.print(value);
         return null;

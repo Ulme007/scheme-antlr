@@ -17,9 +17,9 @@ public class SchemeEvaluatorTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"Print 1", "(print (1))", "1"},
-                {"Print 2", "(print (2))", "2"},
-//                {"Print 1+2", "(print (+ 1 2))", "2"},
+                {"Display 1", "(display (1))", "1"},
+                {"Display 2", "(display (2))", "2"},
+//                {"Display 1+2", "(display (+ 1 2))", "2"},
         });
     }
 

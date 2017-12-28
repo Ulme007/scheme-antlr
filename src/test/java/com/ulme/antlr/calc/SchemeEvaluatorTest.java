@@ -29,11 +29,12 @@ public class SchemeEvaluatorTest {
         return Arrays.asList(new Object[][]{
                 {"Display positive number 1",   "(display 1)",  "1"},
                 {"Display negative number -2",  "(display -2)", "-2"},
-                {"1 + 2 = 3",       "(display (+ 1 2))",    "3"},
-                {"1 + 2 + 3 = 6",   "(display (+ 1 2 3))",  "6"},
-                {"2-1=-1",          "(display (- 1 2))",    "-1"},
-                {"2 * 3 = 6",       "(display (* 2 3))",    "6"},
-                {"6 / 3 = 2",       "(display (/ 6 3))",    "2"},
+                {"1 + 2 = 3",               "(display (+ 1 2))",    "3"},
+                {"1 + 2 + 3 = 6",           "(display (+ 1 2 3))",  "6"},
+                {"2-1=-1",                  "(display (- 1 2))",    "-1"},
+                {"2 * 3 = 6",               "(display (* 2 3))",    "6"},
+                {"6 / 3 = 2",               "(display (/ 6 3))",    "2"},
+                {"(1 + 2) * (3 + 4) = 21",  "(display (* (+ 1 2) (+ 3 4)))", "21"},
         });
     }
 

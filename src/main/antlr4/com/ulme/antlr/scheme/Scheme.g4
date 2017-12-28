@@ -3,14 +3,14 @@ grammar Scheme;
 prog: expr+
     ;
 
-expr: '(' '*' expr+ ')'             #Mult
-    | '(' '/' expr+ ')'             #Div
-    | '(' '+' expr+ ')'             #Plus
-    | '(' '-' expr+ ')'             #Minus
-    | number=NUMBER                 #Number
-    | varName=IDENTIFIER            #Identifier
-    | '(' DISPLAY expr ')'          #Display
-    | '(' DEFINE varName=IDENTIFIER expr ')'  #Define
+expr: '(' '*' expr+ ')'                         #Mult
+    | '(' '/' expr+ ')'                         #Div
+    | '(' '+' expr+ ')'                         #Plus
+    | '(' '-' expr+ ')'                         #Minus
+    | number=NUMBER                             #Number
+    | varName=IDENTIFIER                        #Identifier
+    | '(' DISPLAY expr ')'                      #Display
+    | '(' DEFINE varName=IDENTIFIER expr ')'    #VariableDefinition
     ;
 
 DISPLAY: 'display';

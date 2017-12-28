@@ -27,7 +27,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitDefine(SchemeParser.DefineContext ctx) {
+    public Long visitVariableDefinition(SchemeParser.VariableDefinitionContext ctx) {
         String varName = ctx.varName.getText();
         if (env.containsKey(varName)) {
             throw new VariableAlreadyDefinedException(ctx.varName);

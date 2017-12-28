@@ -27,9 +27,10 @@ public class SchemeEvaluatorTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"Display 1", "(display (1))", "1"},
-                {"Display 2", "(display (2))", "2"},
-                //                {"Display 1+2", "(display (+ 1 2))", "2"},
+                {"Display positive number 1", "(display 1)", "1"},
+                {"Display negative number -2", "(display -2)", "-2"},
+                {"Add 2 numbers", "(display (+ 1 2))", "3"},
+                {"Add 3 numbers", "(display (+ 1 2 3))", "6"},
         });
     }
 

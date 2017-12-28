@@ -4,6 +4,7 @@ import com.ulme.antlr.scheme.SchemeBaseVisitor;
 import com.ulme.antlr.scheme.SchemeParser;
 
 import java.io.PrintStream;
+import java.util.List;
 
 public class MyVisitor extends SchemeBaseVisitor<Long> {
 
@@ -28,7 +29,12 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
 
     @Override
     public Long visitPlus(SchemeParser.PlusContext ctx) {
-        return super.visitPlus(ctx);
+        List<SchemeParser.ExprContext> expr = ctx.expr();
+        Long result = 0L;
+        for (SchemeParser.ExprContext subCtx : expr) {
+            result += visit(subCtx);
+        }
+        return result;
     }
 
     @Override

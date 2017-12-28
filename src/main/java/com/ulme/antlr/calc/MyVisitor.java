@@ -33,18 +33,19 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
         env = new HashMap<>();
 
         // set variables from function call
-//        List<SchemeParser.ExprContext> expressions = ctx.paramNames;
-//        List<SchemeParser.VariableDefinitionContext> declarations = functionDefinitionContext.params.declarations;
-//        for (int i = 0; i < declarations.size(); i++) {
-//            SchemeParser.VariableDefinitionContext varDeclarationContext = declarations.get(i);
-//            String variableName = varDeclarationContext.varName.getText();
-//            Long value = visit(expressions.get(i));
-//            env.put(variableName, value);
-//        }
-//
-//        visit(functionDefinitionContext.);
-//        Long result = visit(functionDefinitionContext.returnValue);
+        /*
+        List<CalcParser.ExpressionContext> expressions = ctx.arguments.expressions;
+        List<CalcParser.VarDeclarationContext> declarations = functionDefinitionContext.params.declarations;
+        for (int i = 0; i < declarations.size(); i++) {
+            CalcParser.VarDeclarationContext varDeclarationContext = declarations.get(i);
+            String variableName = varDeclarationContext.varName.getText();
+            Long value = visit(expressions.get(i));
+            variables.put(variableName, value);
+        }
 
+        visit(functionDefinitionContext.paramNames);
+        Long result = visit(functionDefinitionContext.returnValue);
+*/
         // set back global variables map
         env = oldEnv;
 
@@ -77,19 +78,19 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
         if (env.containsKey(varName)) {
             throw new VariableAlreadyDefinedException(ctx.varName);
         }
-        Long varValue = visit(ctx.expr());
+        Long varValue = visit(ctx.expression());
         env.put(varName, varValue);
         return null;
     }
 
     @Override
-    public Long visitProg(SchemeParser.ProgContext ctx) {
-        return super.visitProg(ctx);
+    public Long visitProgram(SchemeParser.ProgramContext ctx) {
+        return super.visitProgram(ctx);
     }
 
     @Override
     public Long visitDisplay(SchemeParser.DisplayContext ctx) {
-        Long value = visit(ctx.expr());
+        Long value = visit(ctx.expression());
         out.print(value);
         return null;
     }
@@ -97,7 +98,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     @Override
     public Long visitMult(SchemeParser.MultContext ctx) {
         Long result = 0L;
-        List<SchemeParser.ExprContext> expr = ctx.expr();
+        List<SchemeParser.ExpressionContext> expr = ctx.expression();
         if (expr.size() > 0) {
             result = visit(expr.get(0));
             for (int i = 1; i < expr.size(); i++) {
@@ -110,7 +111,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     @Override
     public Long visitDiv(SchemeParser.DivContext ctx) {
         Long result = 0L;
-        List<SchemeParser.ExprContext> expr = ctx.expr();
+        List<SchemeParser.ExpressionContext> expr = ctx.expression();
         if (expr.size() > 0) {
             result = visit(expr.get(0));
             for (int i = 1; i < expr.size(); i++) {
@@ -123,7 +124,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     @Override
     public Long visitPlus(SchemeParser.PlusContext ctx) {
         Long result = 0L;
-        List<SchemeParser.ExprContext> expr = ctx.expr();
+        List<SchemeParser.ExpressionContext> expr = ctx.expression();
         if (expr.size() > 0) {
             result = visit(expr.get(0));
             for (int i = 1; i < expr.size(); i++) {
@@ -136,7 +137,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     @Override
     public Long visitMinus(SchemeParser.MinusContext ctx) {
         Long result = 0L;
-        List<SchemeParser.ExprContext> expr = ctx.expr();
+        List<SchemeParser.ExpressionContext> expr = ctx.expression();
         if (expr.size() > 0) {
             result = visit(expr.get(0));
             for (int i = 1; i < expr.size(); i++) {

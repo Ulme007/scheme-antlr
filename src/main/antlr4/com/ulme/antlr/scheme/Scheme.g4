@@ -1,28 +1,19 @@
 grammar Scheme;
 
-prog: expr+
-    ;
+program: expression+
+       ;
 
-/*
-(define (sum x1 x2)
-(+ x1 x2))
-
-(define (prozedurname attribut1 attribut2)
-(Anweisung1)
-(Anweisung2))
-*/
-
-expr: '(' '*' expr+ ')'                         #Mult
-    | '(' '/' expr+ ')'                         #Div
-    | '(' '+' expr+ ')'                         #Plus
-    | '(' '-' expr+ ')'                         #Minus
-    | number=NUMBER                             #Number
-    | varName=IDENTIFIER                        #Identifier
-    | '(' DISPLAY expr ')'                      #Display
-    | '(' DEFINE varName=IDENTIFIER expr ')'    #VariableDefinition
-    | '(' DEFINE '(' funcName=IDENTIFIER (paramNames+=IDENTIFIER)* ')' expr+ ')'    #FunctionDefinition
-    | '(' funcName=IDENTIFIER (paramNames+=(NUMBER|IDENTIFIER))* ')'                #FunctionCall
-    ;
+expression: '(' '*' expression+ ')'                         #Mult
+          | '(' '/' expression+ ')'                         #Div
+          | '(' '+' expression+ ')'                         #Plus
+          | '(' '-' expression+ ')'                         #Minus
+          | number=NUMBER                             #Number
+          | varName=IDENTIFIER                        #Identifier
+          | '(' DISPLAY expression ')'                      #Display
+          | '(' DEFINE varName=IDENTIFIER expression ')'    #VariableDefinition
+          | '(' DEFINE '(' funcName=IDENTIFIER (paramNames+=IDENTIFIER)* ')' expression+ ')'    #FunctionDefinition
+          | '(' funcName=IDENTIFIER (paramNames+=(NUMBER|IDENTIFIER))* ')'                #FunctionCall
+          ;
 
 DISPLAY: 'display';
 

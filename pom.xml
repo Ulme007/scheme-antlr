@@ -87,7 +87,7 @@
                                     <mainClass>org.antlr.v4.gui.TestRig</mainClass>
                                     <arguments>
                                         <argument>com.ulme.antlr.scheme.Scheme</argument>
-                                        <argument>prog</argument>
+                                        <argument>program</argument>
                                         <argument>-gui</argument>
                                         <argument>target/classes/code.demo</argument>
                                     </arguments>
@@ -116,7 +116,7 @@
                                     <mainClass>org.antlr.v4.gui.TestRig</mainClass>
                                     <arguments>
                                         <argument>com.ulme.antlr.scheme.Scheme</argument>
-                                        <argument>prog</argument>
+                                        <argument>program</argument>
                                         <argument>-tokens</argument>
                                         <argument>target/classes/code.demo</argument>
                                     </arguments>

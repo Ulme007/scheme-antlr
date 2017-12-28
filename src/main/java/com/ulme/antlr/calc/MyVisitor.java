@@ -33,7 +33,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
         env = new HashMap<>();
 
         // set variables from function call
-//        List<SchemeParser.ExprContext> expressions = ctx.paramNames.arguments.expressions;
+//        List<SchemeParser.ExprContext> expressions = ctx.paramNames;
 //        List<SchemeParser.VariableDefinitionContext> declarations = functionDefinitionContext.params.declarations;
 //        for (int i = 0; i < declarations.size(); i++) {
 //            SchemeParser.VariableDefinitionContext varDeclarationContext = declarations.get(i);

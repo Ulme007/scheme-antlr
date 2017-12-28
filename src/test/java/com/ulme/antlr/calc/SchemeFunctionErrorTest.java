@@ -13,7 +13,7 @@ public class SchemeFunctionErrorTest {
         assertThatThrownBy(() -> {
                     SchemeEvaluator schemeEvaluator = new SchemeEvaluator(null);
                     schemeEvaluator.evaluateExpression(
-                            "(sum (1 2))"
+                            "(sum 1 2)"
                     );
                 }
         ).isInstanceOf(UndefinedFunctionException.class)

@@ -20,8 +20,8 @@ expr: '(' '*' expr+ ')'                         #Mult
     | varName=IDENTIFIER                        #Identifier
     | '(' DISPLAY expr ')'                      #Display
     | '(' DEFINE varName=IDENTIFIER expr ')'    #VariableDefinition
-    | '(' DEFINE '(' funcName=IDENTIFIER (paramNames+=IDENTIFIER)* ')' expr+ ')'  #FunctionDefinition
-    | '(' funcName=IDENTIFIER '(' (paramNames+=(NUMBER|IDENTIFIER))* ')' ')'      #FunctionCall
+    | '(' DEFINE '(' funcName=IDENTIFIER (paramNames+=IDENTIFIER)* ')' expr+ ')'    #FunctionDefinition
+    | '(' funcName=IDENTIFIER (paramNames+=(NUMBER|IDENTIFIER))* ')'                #FunctionCall
     ;
 
 DISPLAY: 'display';

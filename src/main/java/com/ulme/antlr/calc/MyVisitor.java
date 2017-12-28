@@ -20,8 +20,10 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     @Override
     public Long visitIdentifier(SchemeParser.IdentifierContext ctx) {
         String varName = ctx.varName.getText();
-        Long varValue = env.get(varName);
-        return varValue;
+        if (! env.containsKey(varName)) {
+            throw new UndeclaredVariableException(ctx.varName);
+        }
+        return env.get(varName);
     }
 
     @Override

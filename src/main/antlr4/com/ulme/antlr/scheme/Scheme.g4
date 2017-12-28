@@ -11,8 +11,8 @@ expression: '(' '*' expression+ ')'                         #Mult
           | varName=IDENTIFIER                        #Identifier
           | '(' DISPLAY expression ')'                      #Display
           | '(' DEFINE varName=IDENTIFIER expression ')'    #VariableDefinition
-          | '(' DEFINE '(' funcName=IDENTIFIER (paramNames+=IDENTIFIER)* ')' expression+ ')'    #FunctionDefinition
-          | '(' funcName=IDENTIFIER (paramNames+=(NUMBER|IDENTIFIER))* ')'                #FunctionCall
+          | '(' DEFINE '(' funcName=IDENTIFIER (paramNames+=IDENTIFIER)* ')' statements=expression+ ')'    #FunctionDefinition
+          | '(' funcName=IDENTIFIER arguments+=expression* ')'                #FunctionCall
           ;
 
 DISPLAY: 'display';

@@ -2,6 +2,7 @@ package com.ulme.antlr.calc;
 
 import com.ulme.antlr.scheme.SchemeBaseVisitor;
 import com.ulme.antlr.scheme.SchemeParser;
+import org.antlr.v4.runtime.Token;
 
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
 
     @Override
     public Long visitFunctionCall(SchemeParser.FunctionCallContext ctx) {
-        String functionName = getFunctionName(ctx.funcName.getText(), ctx.paramNames.size());
+        String functionName = getFunctionName(ctx.funcName.getText(), ctx.arguments.size());
         SchemeParser.FunctionDefinitionContext functionDefinitionContext = functions.get(functionName);
         if (functionDefinitionContext == null) {
             throw new UndefinedFunctionException(ctx.funcName, functionName);
@@ -33,23 +34,21 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
         env = new HashMap<>();
 
         // set variables from function call
-        /*
-        List<CalcParser.ExpressionContext> expressions = ctx.arguments.expressions;
-        List<CalcParser.VarDeclarationContext> declarations = functionDefinitionContext.params.declarations;
+
+        List<SchemeParser.ExpressionContext> expressions = ctx.arguments;
+        List<Token> declarations = functionDefinitionContext.paramNames;
         for (int i = 0; i < declarations.size(); i++) {
-            CalcParser.VarDeclarationContext varDeclarationContext = declarations.get(i);
-            String variableName = varDeclarationContext.varName.getText();
+            String variableName = declarations.get(i).getText();
             Long value = visit(expressions.get(i));
-            variables.put(variableName, value);
+            env.put(variableName, value);
         }
 
-        visit(functionDefinitionContext.paramNames);
-        Long result = visit(functionDefinitionContext.returnValue);
-*/
+        Long result = visit(functionDefinitionContext.statements);
+
         // set back global variables map
         env = oldEnv;
 
-        return 0L;
+        return result;
     }
 
     @Override

@@ -40,7 +40,8 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
         List<SchemeParser.ExpressionContext> expressions = ctx.arguments;
         List<Token> declarations = functionDefinitionContext.paramNames;
         for (int i = 0; i < declarations.size(); i++) {
-            String variableName = declarations.get(i).getText();
+            String variableName = declarations.get(i)
+                                              .getText();
             Long value = visit(expressions.get(i));
             env.put(variableName, value);
         }
@@ -97,27 +98,24 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitMult(SchemeParser.MultContext ctx) {
-        BinaryOperator<Long> mult = (x, y) -> x * y;
-        return processOperator(ctx.expression(), mult);
-    }
-
-    @Override
-    public Long visitDiv(SchemeParser.DivContext ctx) {
-        BinaryOperator<Long> div = (x, y) -> x / y;
-        return processOperator(ctx.expression(), div);
-    }
-
-    @Override
-    public Long visitPlus(SchemeParser.PlusContext ctx) {
-        BinaryOperator<Long> add = (x, y) -> x + y;
-        return processOperator(ctx.expression(), add);
-    }
-
-    @Override
-    public Long visitMinus(SchemeParser.MinusContext ctx) {
-        BinaryOperator<Long> minus = (x, y) -> x - y;
-        return processOperator(ctx.expression(), minus);
+    public Long visitArithmeticOperation(SchemeParser.ArithmeticOperationContext ctx) {
+        String operator = ctx.oprator.getText();
+        BinaryOperator<Long> operation = null;
+        switch (operator) {
+            case "+":
+                operation = (x, y) -> x + y;
+                break;
+            case "-":
+                operation = (x, y) -> x - y;
+                break;
+            case "*":
+                operation = (x, y) -> x * y;
+                break;
+            case "/":
+                operation = (x, y) -> x / y;
+                break;
+        }
+        return processOperator(ctx.expression(), operation);
     }
 
     private Long processOperator(List<SchemeParser.ExpressionContext> expr, BiFunction<Long, Long, Long> biFunc) {

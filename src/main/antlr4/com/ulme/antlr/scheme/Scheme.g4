@@ -3,10 +3,7 @@ grammar Scheme;
 program: expression+
        ;
 
-expression: '(' '*' expression+ ')'                         #Mult
-          | '(' '/' expression+ ')'                         #Div
-          | '(' '+' expression+ ')'                         #Plus
-          | '(' '-' expression+ ')'                         #Minus
+expression: '(' oprator=arithmeticOperator expression+ ')'  #ArithmeticOperation
           | number=NUMBER                             #Number
           | varName=IDENTIFIER                        #Identifier
           | '(' DISPLAY expression ')'                      #Display
@@ -15,8 +12,16 @@ expression: '(' '*' expression+ ')'                         #Mult
           | '(' funcName=IDENTIFIER arguments+=expression* ')'                #FunctionCall
           ;
 
-DISPLAY: 'display';
+arithmeticOperator: '+'|'-'|'*'|'/'
+                  ;
 
+//relationalRator: '='|'>'|'<'
+//               ;
+//
+//booleanOperator: 'and'|'or'|'not'
+//               ;
+
+DISPLAY: 'display';
 DEFINE: 'define';
 
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9]*;

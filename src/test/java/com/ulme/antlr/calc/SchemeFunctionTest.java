@@ -27,8 +27,17 @@ public class SchemeFunctionTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"Define and use sum function",
-                        "(define (sum x1 x2)(+ x1 x2))(display (sum 2 3))", "5"},
+                //                {"Define and use function without parameter",
+                //                        "(define (getOne)(1))(display (getOne))", "1"},
+                //                {"Define and use identity function",
+                //                        "(define (identity x)(x))(display (identity 2))", "2"},
+                                {"Define and use sum function",
+                                        "(define (sum x1 x2)(+ x1 x2))(display (sum 2 3))", "5"},
+//                {"Function with operator as argument",
+//                        "(define (h op x y)" +
+//                                "(op x y))" +
+//                                "(display(h + 23 42))" +
+//                                "(display(h * 23 42))", "5"},
         });
     }
 

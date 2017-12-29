@@ -1,6 +1,5 @@
 package com.ulme.antlr.calc;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,7 +11,6 @@ import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 
-@Ignore
 @RunWith(Parameterized.class)
 public class SchemeFunctionTest {
 
@@ -30,7 +28,7 @@ public class SchemeFunctionTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"Define and use sum function",
-                        "(define (sum x1 x2)(+ x1 x2))(display (sum 2 3))",  "5"},
+                        "(define (sum x1 x2)(+ x1 x2))(display (sum 2 3))", "5"},
         });
     }
 

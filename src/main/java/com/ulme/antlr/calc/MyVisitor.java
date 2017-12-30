@@ -22,6 +22,13 @@ public class MyVisitor extends SchemeBaseVisitor<Long> {
     }
 
     @Override
+    public Long visitList(SchemeParser.ListContext ctx) {
+        List<SchemeParser.ExpressionContext> expression = ctx.expression();
+
+        return super.visitList(ctx);
+    }
+
+    @Override
     public Long visitFunctionCall(SchemeParser.FunctionCallContext ctx) {
         String functionName = getFunctionName(ctx.funcName.getText(), ctx.arguments.size());
         SchemeParser.FunctionDefinitionContext functionDefinitionContext = functions.get(functionName);

@@ -12,13 +12,13 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class SchemeFunctionTest {
+public class FunctionTest {
 
     private String description;
     private String expression;
     private String result;
 
-    public SchemeFunctionTest(String description, String expression, String result) {
+    public FunctionTest(String description, String expression, String result) {
         this.description = description;
         this.expression = expression;
         this.result = result;

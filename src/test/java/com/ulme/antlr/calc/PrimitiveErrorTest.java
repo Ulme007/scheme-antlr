@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-public class SchemePrimitiveErrorTest {
+public class PrimitiveErrorTest {
 
     @Test
     public void throw_exception_if_variable_is_not_defined() {

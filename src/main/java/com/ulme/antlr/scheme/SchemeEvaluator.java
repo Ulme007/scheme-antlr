@@ -1,7 +1,6 @@
-package com.ulme.antlr.calc;
+package com.ulme.antlr.scheme;
 
-import com.ulme.antlr.scheme.SchemeLexer;
-import com.ulme.antlr.scheme.SchemeParser;
+import com.ulme.antlr.scheme.types.Type;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -18,17 +17,17 @@ public class SchemeEvaluator {
         this.printStream = printStream;
     }
 
-    Long evaluateFile(String filename) throws IOException {
+    Type evaluateFile(String filename) throws IOException {
         ANTLRInputStream antlrInputStream = new ANTLRFileStream(filename);
         return evaluate(antlrInputStream);
     }
 
-    Long evaluateExpression(String expression) {
+    Type evaluateExpression(String expression) {
         ANTLRInputStream antlrInputStream = new ANTLRInputStream(expression);
         return evaluate(antlrInputStream);
     }
 
-    private Long evaluate(ANTLRInputStream antlrInputStream) {
+    private Type evaluate(ANTLRInputStream antlrInputStream) {
         SchemeLexer calcLexer = new SchemeLexer(antlrInputStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(calcLexer);
         SchemeParser calcParser = new SchemeParser(commonTokenStream);

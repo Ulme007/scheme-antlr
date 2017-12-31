@@ -26,6 +26,13 @@ DISPLAY: 'display';
 DEFINE: 'define';
 LIST: 'list';
 
+/*
+SEMICOLON       : ';' -> mode(COMMENT_MODE);
+mode COMMENT_MODE;
+COMMENT_TEXT: (~('\n' | EOF))*;
+END: ('\n' | EOL) -> mode(DEFAULT_MODE);
+*/
+
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9]*;
 NUMBER: ('-')? [0-9]+;
 WHITESPACE: [ \t\n\r]+ -> skip;

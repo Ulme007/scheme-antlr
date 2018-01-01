@@ -7,12 +7,12 @@
 
 ## Functions
 
-Function        | Semantic                   
---------------- | ----------------------------
-(display 1)     | Print '1' without new line 
-(newline)       | Print out a new line       
-(define size 2) | Define the variable `size` with the value 2
-
+Function                    | Semantic                   
+--------------------------- | ----------------------------
+(display 1)                 | Print '1' without new line 
+(newline)                   | Print out a new line       
+(define size 2)             | Define the variable `size` with the value 2
+(define (square x) (* x x)) | Define the function `square`. Execute this with (square 2)
 
 # Development
 
@@ -25,7 +25,7 @@ Function        | Semantic
 * `display` should use print not println
 * Add **newline** - print out a new line
 * Add comments to the grammar
-* Add conditions su as: **<,>,<=,>=,not,and**
+* Add conditions su as: **<,>,<=,>=,and,or,not**
 * Define and execute a file for the standard functions such as **abs**, **map** and so on
 * Add **list** - define a list
   ```

@@ -5,18 +5,14 @@ import com.ulme.antlr.scheme.types.Type;
 import org.antlr.v4.runtime.Token;
 
 import java.io.PrintStream;
-import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 
 public class MyVisitor extends SchemeBaseVisitor<Type> {
 
+    private Environment env = new Environment();
     private PrintStream out;
-    private Map<String, Type> env = new HashMap<>();
-    private Map<String, SchemeParser.FunctionDefinitionContext> functions = new HashMap<>();
 
     MyVisitor(PrintStream out) {
         this.out = out;
@@ -32,26 +28,25 @@ public class MyVisitor extends SchemeBaseVisitor<Type> {
     @Override
     public Type visitFunctionCall(SchemeParser.FunctionCallContext ctx) {
         String functionName = getFunctionName(ctx.funcName.getText(), ctx.arguments.size());
-        SchemeParser.FunctionDefinitionContext functionDefinitionContext = functions.get(functionName);
+        SchemeParser.FunctionDefinitionContext functionDefinitionContext = env.getFunction(functionName);
         if (functionDefinitionContext == null) {
             throw new UndefinedFunctionException(ctx.funcName, functionName);
         }
 
         //save global variables map
-        Map<String, Type> oldEnv = env;
+        Environment oldEnv = env;
 
         // create a local variables map
-        env = new HashMap<>();
+        env = new Environment();
 
         // set variables from function call
-
         List<SchemeParser.ExpressionContext> expressions = ctx.arguments;
         List<Token> declarations = functionDefinitionContext.paramNames;
         for (int i = 0; i < declarations.size(); i++) {
             String variableName = declarations.get(i)
                                               .getText();
             Type value = visit(expressions.get(i));
-            env.put(variableName, value);
+            env.putVariable(variableName, value);
         }
 
         Type result = visit(functionDefinitionContext.statements);
@@ -65,10 +60,10 @@ public class MyVisitor extends SchemeBaseVisitor<Type> {
     @Override
     public Type visitFunctionDefinition(SchemeParser.FunctionDefinitionContext ctx) {
         String functionName = getFunctionName(ctx.funcName.getText(), ctx.paramNames.size());
-        if (functions.containsKey(functionName)) {
+        if (env.containsFunction(functionName)) {
             throw new FunctionAlreadyDefinedException(ctx.funcName, functionName);
         }
-        functions.put(functionName, ctx);
+        env.putFunction(functionName, ctx);
 
         return null;
     }
@@ -76,20 +71,20 @@ public class MyVisitor extends SchemeBaseVisitor<Type> {
     @Override
     public Type visitIdentifier(SchemeParser.IdentifierContext ctx) {
         String varName = ctx.varName.getText();
-        if (!env.containsKey(varName)) {
+        if (!env.containsVariable(varName)) {
             throw new UndeclaredVariableException(ctx.varName);
         }
-        return env.get(varName);
+        return env.getVariable(varName);
     }
 
     @Override
     public Type visitVariableDefinition(SchemeParser.VariableDefinitionContext ctx) {
         String varName = ctx.varName.getText();
-        if (env.containsKey(varName)) {
+        if (env.containsVariable(varName)) {
             throw new VariableAlreadyDefinedException(ctx.varName);
         }
         Type varValue = visit(ctx.expression());
-        env.put(varName, varValue);
+        env.putVariable(varName, varValue);
         return null;
     }
 

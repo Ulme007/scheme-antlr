@@ -6,10 +6,13 @@
 - List
 
 ## Functions
-| Function   | Remark                   |
-|------------|--------------------------|
-| (display 1)| Print 1 woithout new line|
-| (newline)  | Print out a new line     |
+
+Function        | Semantic                   
+--------------- | ----------------------------
+(display 1)     | Print '1' without new line 
+(newline)       | Print out a new line       
+(define size 2) | Define the variable `size` with the value 2
+
 
 # Development
 

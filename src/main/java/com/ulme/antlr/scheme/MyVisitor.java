@@ -109,35 +109,35 @@ public class MyVisitor extends SchemeBaseVisitor<Type> {
     @Override
     public Type visitArithmeticOperation(SchemeParser.ArithmeticOperationContext ctx) {
         String operator = ctx.oprator.getText();
-        BinaryOperator<BigDecimal> operation = null;
+        BinaryOperator<DecimalType> operation = null;
         switch (operator) {
             case "+":
-                operation = BigDecimal::add;
+                operation = DecimalType::add;
                 break;
             case "-":
-                operation = BigDecimal::subtract;
+                operation = DecimalType::subtract;
                 break;
             case "*":
-                operation = BigDecimal::multiply;
+                operation = DecimalType::multiply;
                 break;
             case "/":
-                operation = BigDecimal::divide;
+                operation = DecimalType::divide;
                 break;
         }
         return processOperator(ctx.expression(), operation);
     }
 
-    private Type processOperator(List<SchemeParser.ExpressionContext> expr, BiFunction<BigDecimal, BigDecimal, BigDecimal> biFunc) {
-        BigDecimal result = null;
+    private Type processOperator(List<SchemeParser.ExpressionContext> expr, BiFunction<DecimalType, DecimalType, DecimalType> biFunc) {
+        DecimalType result = null;
         if (expr.size() > 0) {
             DecimalType decimalType = (DecimalType) visit(expr.get(0));
-            result = decimalType.getValue();
+            result = decimalType;
             for (int i = 1; i < expr.size(); i++) {
                 decimalType = (DecimalType) visit(expr.get(i));
-                result = biFunc.apply(result, decimalType.getValue());
+                result = biFunc.apply(result, decimalType);
             }
         }
-        return new DecimalType(result);
+        return result;
     }
 
     @Override

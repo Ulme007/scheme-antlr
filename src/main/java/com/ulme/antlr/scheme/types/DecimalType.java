@@ -2,9 +2,11 @@ package com.ulme.antlr.scheme.types;
 
 import java.math.BigDecimal;
 
+import static java.math.BigDecimal.ROUND_UNNECESSARY;
+
 public class DecimalType extends Type {
 
-    private BigDecimal value;
+    private final BigDecimal value;
 
     public DecimalType(BigDecimal value) {
         this.value = value;
@@ -18,8 +20,20 @@ public class DecimalType extends Type {
         this.value = new BigDecimal(value);
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public DecimalType add(DecimalType other) {
+        return new DecimalType(value.add(other.value));
+    }
+
+    public DecimalType subtract(DecimalType other) {
+        return new DecimalType(value.subtract(other.value));
+    }
+
+    public DecimalType multiply(DecimalType other) {
+        return new DecimalType(value.multiply(other.value));
+    }
+
+    public DecimalType divide(DecimalType other) {
+        return new DecimalType(value.divide(other.value, ROUND_UNNECESSARY));
     }
 
     @Override

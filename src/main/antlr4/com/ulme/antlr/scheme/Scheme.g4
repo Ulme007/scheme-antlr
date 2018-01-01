@@ -3,15 +3,15 @@ grammar Scheme;
 program: expression+
        ;
 
-expression: OPEN_BRACE oprator=arithmeticOperator expression+ CLOSE_BRACE  #ArithmeticOperation
+expression: LPAREN oprator=arithmeticOperator expression+ RPAREN  #ArithmeticOperation
           | number=NUMBER                                   #Number
           | varName=IDENTIFIER                              #Identifier
-          | OPEN_BRACE DISPLAY expression CLOSE_BRACE                      #Display
-          | OPEN_BRACE NEWLINE CLOSE_BRACE                                 #Newline
-          | OPEN_BRACE LIST expression* CLOSE_BRACE                        #List
-          | OPEN_BRACE DEFINE varName=IDENTIFIER expression CLOSE_BRACE    #VariableDefinition
-          | OPEN_BRACE DEFINE OPEN_BRACE funcName=IDENTIFIER (paramNames+=IDENTIFIER)* CLOSE_BRACE statements=expression+ CLOSE_BRACE    #FunctionDefinition
-          | OPEN_BRACE funcName=IDENTIFIER arguments+=expression* CLOSE_BRACE                #FunctionCall
+          | LPAREN DISPLAY expression RPAREN                      #Display
+          | LPAREN NEWLINE RPAREN                                 #Newline
+          | LPAREN LIST expression* RPAREN                        #List
+          | LPAREN DEFINE varName=IDENTIFIER expression RPAREN    #VariableDefinition
+          | LPAREN DEFINE LPAREN funcName=IDENTIFIER (paramNames+=IDENTIFIER)* RPAREN statements=expression+ RPAREN    #FunctionDefinition
+          | LPAREN funcName=IDENTIFIER arguments+=expression* RPAREN                #FunctionCall
           ;
 
 arithmeticOperator: '+'|'-'|'*'|'/'
@@ -30,8 +30,8 @@ LIST: 'list';
 TRUE: '#t';
 FALSE: '#f';
 
-OPEN_BRACE: '(';
-CLOSE_BRACE: ')';
+LPAREN: '(';
+RPAREN: ')';
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9]*;
 NUMBER: ('-')? [0-9]+;
 

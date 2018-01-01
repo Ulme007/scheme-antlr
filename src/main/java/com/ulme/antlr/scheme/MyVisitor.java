@@ -1,10 +1,11 @@
 package com.ulme.antlr.scheme;
 
-import com.ulme.antlr.scheme.types.LongType;
+import com.ulme.antlr.scheme.types.DecimalType;
 import com.ulme.antlr.scheme.types.Type;
 import org.antlr.v4.runtime.Token;
 
 import java.io.PrintStream;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,40 +109,40 @@ public class MyVisitor extends SchemeBaseVisitor<Type> {
     @Override
     public Type visitArithmeticOperation(SchemeParser.ArithmeticOperationContext ctx) {
         String operator = ctx.oprator.getText();
-        BinaryOperator<Long> operation = null;
+        BinaryOperator<BigDecimal> operation = null;
         switch (operator) {
             case "+":
-                operation = (x, y) -> x + y;
+                operation = BigDecimal::add;
                 break;
             case "-":
-                operation = (x, y) -> x - y;
+                operation = BigDecimal::subtract;
                 break;
             case "*":
-                operation = (x, y) -> x * y;
+                operation = BigDecimal::multiply;
                 break;
             case "/":
-                operation = (x, y) -> x / y;
+                operation = BigDecimal::divide;
                 break;
         }
         return processOperator(ctx.expression(), operation);
     }
 
-    private Type processOperator(List<SchemeParser.ExpressionContext> expr, BiFunction<Long, Long, Long> biFunc) {
-        Long result = 0L;
+    private Type processOperator(List<SchemeParser.ExpressionContext> expr, BiFunction<BigDecimal, BigDecimal, BigDecimal> biFunc) {
+        BigDecimal result = null;
         if (expr.size() > 0) {
-            LongType longType = (LongType) visit(expr.get(0));
-            result = longType.getValue();
+            DecimalType decimalType = (DecimalType) visit(expr.get(0));
+            result = decimalType.getValue();
             for (int i = 1; i < expr.size(); i++) {
-                longType = (LongType) visit(expr.get(i));
-                result = biFunc.apply(result, longType.getValue());
+                decimalType = (DecimalType) visit(expr.get(i));
+                result = biFunc.apply(result, decimalType.getValue());
             }
         }
-        return new LongType(result);
+        return new DecimalType(result);
     }
 
     @Override
     public Type visitNumber(SchemeParser.NumberContext ctx) {
-        return new LongType(Long.parseLong(ctx.number.getText()));
+        return new DecimalType(ctx.number.getText());
     }
 
     private String getFunctionName(String functionName, int parameterSize) {

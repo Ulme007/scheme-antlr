@@ -100,6 +100,12 @@ public class MyVisitor extends SchemeBaseVisitor<Type> {
     }
 
     @Override
+    public Type visitNewline(SchemeParser.NewlineContext ctx) {
+        out.println();
+        return null;
+    }
+
+    @Override
     public Type visitArithmeticOperation(SchemeParser.ArithmeticOperationContext ctx) {
         String operator = ctx.oprator.getText();
         BinaryOperator<Long> operation = null;

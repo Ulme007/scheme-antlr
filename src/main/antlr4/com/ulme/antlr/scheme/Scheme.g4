@@ -7,6 +7,7 @@ expression: '(' oprator=arithmeticOperator expression+ ')'  #ArithmeticOperation
           | number=NUMBER                                   #Number
           | varName=IDENTIFIER                              #Identifier
           | '(' DISPLAY expression ')'                      #Display
+          | '(' NEWLINE ')'                                 #Newline
           | '(' LIST expression* ')'                        #List
           | '(' DEFINE varName=IDENTIFIER expression ')'    #VariableDefinition
           | '(' DEFINE '(' funcName=IDENTIFIER (paramNames+=IDENTIFIER)* ')' statements=expression+ ')'    #FunctionDefinition
@@ -23,6 +24,7 @@ arithmeticOperator: '+'|'-'|'*'|'/'
 //               ;
 
 DISPLAY: 'display';
+NEWLINE: 'newline';
 DEFINE: 'define';
 LIST: 'list';
 

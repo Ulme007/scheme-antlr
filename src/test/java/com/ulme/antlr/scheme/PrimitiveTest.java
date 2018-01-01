@@ -27,6 +27,7 @@ public class PrimitiveTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
+                {"Print a new line", "(newline)", "\n"},
                 {"Display positive number 1", "(display 1)", "1"},
                 {"Display negative number -2", "(display -2)", "-2"},
                 {"(+ 1 2)", "(display (+ 1 2))", "3"},

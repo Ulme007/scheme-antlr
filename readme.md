@@ -1,5 +1,15 @@
 # Very simple Scheme interpreter with ANTLR
 
+## Types
+- Long
+- String
+- List
+
+## Functions
+| Function   | Remark                   |
+|------------|--------------------------|
+| (display 1)| Print 1 woithout new line|
+| (newline)  | Print out a new line     |
 
 # Development
 

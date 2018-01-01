@@ -10,7 +10,6 @@ import static org.junit.Assert.assertEquals;
 
 public class ListTest {
 
-    @Ignore
     @Test
     public void createList() throws Exception {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();

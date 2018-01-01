@@ -3,30 +3,32 @@ grammar Scheme;
 program: expression+
        ;
 
-expression: '(' oprator=arithmeticOperator expression+ ')'  #ArithmeticOperation
+expression: OPEN_BRACE oprator=arithmeticOperator expression+ CLOSE_BRACE  #ArithmeticOperation
           | number=NUMBER                                   #Number
           | varName=IDENTIFIER                              #Identifier
-          | '(' DISPLAY expression ')'                      #Display
-          | '(' NEWLINE ')'                                 #Newline
-          | '(' LIST expression* ')'                        #List
-          | '(' DEFINE varName=IDENTIFIER expression ')'    #VariableDefinition
-          | '(' DEFINE '(' funcName=IDENTIFIER (paramNames+=IDENTIFIER)* ')' statements=expression+ ')'    #FunctionDefinition
-          | '(' funcName=IDENTIFIER arguments+=expression* ')'                #FunctionCall
+          | OPEN_BRACE DISPLAY expression CLOSE_BRACE                      #Display
+          | OPEN_BRACE NEWLINE CLOSE_BRACE                                 #Newline
+          | OPEN_BRACE LIST expression* CLOSE_BRACE                        #List
+          | OPEN_BRACE DEFINE varName=IDENTIFIER expression CLOSE_BRACE    #VariableDefinition
+          | OPEN_BRACE DEFINE OPEN_BRACE funcName=IDENTIFIER (paramNames+=IDENTIFIER)* CLOSE_BRACE statements=expression+ CLOSE_BRACE    #FunctionDefinition
+          | OPEN_BRACE funcName=IDENTIFIER arguments+=expression* CLOSE_BRACE                #FunctionCall
           ;
 
 arithmeticOperator: '+'|'-'|'*'|'/'
                   ;
 
-//relationalRator: '='|'>'|'<'
-//               ;
-//
-//booleanOperator: 'and'|'or'|'not'
-//               ;
+relationalOperator: '='|'<'|'<='|'>'|'>='
+                  ;
+
+booleanOperator: 'and'|'or'|'not'
+               ;
 
 DISPLAY: 'display';
 NEWLINE: 'newline';
 DEFINE: 'define';
 LIST: 'list';
+TRUE: '#t';
+FALSE: '#f';
 
 /*
 SEMICOLON       : ';' -> mode(COMMENT_MODE);
@@ -35,6 +37,8 @@ COMMENT_TEXT: (~('\n' | EOF))*;
 END: ('\n' | EOL) -> mode(DEFAULT_MODE);
 */
 
+OPEN_BRACE: '(';
+CLOSE_BRACE: ')';
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9]*;
 NUMBER: ('-')? [0-9]+;
 WHITESPACE: [ \t\n\r]+ -> skip;

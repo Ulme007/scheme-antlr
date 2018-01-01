@@ -1,6 +1,7 @@
 package com.ulme.antlr.scheme;
 
 import com.ulme.antlr.scheme.types.DecimalType;
+import com.ulme.antlr.scheme.types.ListType;
 import com.ulme.antlr.scheme.types.Type;
 import org.antlr.v4.runtime.Token;
 
@@ -20,9 +21,15 @@ public class MyVisitor extends SchemeBaseVisitor<Type> {
 
     @Override
     public Type visitList(SchemeParser.ListContext ctx) {
-        List<SchemeParser.ExpressionContext> expression = ctx.expression();
+        List<SchemeParser.ExpressionContext> expressions = ctx.expression();
 
-        return super.visitList(ctx);
+        ListType result = new ListType();
+        for (SchemeParser.ExpressionContext expression :
+                expressions) {
+            Type value = visit(expression);
+            result.add(value);
+        }
+        return result;
     }
 
     @Override

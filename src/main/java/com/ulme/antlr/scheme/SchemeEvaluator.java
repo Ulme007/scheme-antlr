@@ -28,11 +28,11 @@ public class SchemeEvaluator {
     }
 
     private Type evaluate(ANTLRInputStream antlrInputStream) {
-        SchemeLexer calcLexer = new SchemeLexer(antlrInputStream);
-        CommonTokenStream commonTokenStream = new CommonTokenStream(calcLexer);
-        SchemeParser calcParser = new SchemeParser(commonTokenStream);
+        SchemeLexer lexer = new SchemeLexer(antlrInputStream);
+        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+        SchemeParser parser = new SchemeParser(tokenStream);
 
-        ParseTree parseTree = calcParser.program();
+        ParseTree parseTree = parser.program();
         return new MyVisitor(printStream).visit(parseTree);
     }
 }

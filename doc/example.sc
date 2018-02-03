@@ -1,3 +1,33 @@
+;; cons and car defintions
+(cons (cons 1 2) (cons 3 4))
+-> ((1 . 2) 3 . 4)
+
+(cons (cons 1 (cons 2 3)) 4)
+-> ((1 2 . 3) . 4)
+
+(cons (cons (cons 1 2) (cons 3 4)) (cons (cons 1 2) (cons 3 4)))
+-> (((1 . 2) 3 . 4) (1 . 2) 3 . 4)
+
+(cons 1 (cons 2 (cons 3 (cons 4 '()))))
+-> (1 2 3 4)
+
+(car (cons (cons 1 2) (cons 3 4)))
+-> (1 . 2)
+
+(car (cons (cons 1 (cons 2 3)) 4))
+-> (1 2 . 3)
+
+
+(cdr (cons (cons 1 2) (cons 3 4)))
+-> (3 . 4)
+(cdr (cons (cons 1 (cons 2 3)) 4))
+-> 4
+
+
+;; Definition with lambda
+(define fact (lambda (n) (if (< n 1) 1 (* n (fact (- n 1))))))
+
+
 ;; generate a list
 (define (makelist n)
   (if (= n 0)

@@ -29,6 +29,7 @@ DEFINE: 'define';
 LIST: 'list';
 TRUE: '#t';
 FALSE: '#f';
+NIL: 'nil';
 
 LPAREN: '(';
 RPAREN: ')';

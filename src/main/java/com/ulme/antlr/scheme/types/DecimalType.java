@@ -40,4 +40,9 @@ public class DecimalType extends Type {
     public String toString() {
         return String.valueOf(value);
     }
+
+    @Override
+    public String toString(boolean hasParen) {
+        return toString();
+    }
 }

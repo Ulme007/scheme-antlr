@@ -22,6 +22,8 @@ Function                    | Semantic
   mvn compile -PPrintToken
 
 # ToDo
+* Add second visitor to collect all function definitions
+* Add type for a function (e.g. FunctionType)
 * `display` should use print not println
 * Add **newline** - print out a new line
 * Add comments to the grammar

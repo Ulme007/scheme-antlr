@@ -18,4 +18,9 @@ public class ListType extends Type {
         String values = elements.stream().map(Object::toString).collect(Collectors.joining(" "));
         return "(" + values + ")";
     }
+
+    @Override
+    public String toString(boolean hasParen) {
+        return toString();
+    }
 }

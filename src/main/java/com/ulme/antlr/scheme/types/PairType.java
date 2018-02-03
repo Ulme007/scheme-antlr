@@ -17,38 +17,35 @@ public class PairType extends Type {
 
     @Override
     public String toString() {
-        if (isPairType(car) && isPairType(cdr)) {
-            return "(" + car.toString(true) + " " + cdr.toString(false) + ")";
-        } else if (isPairType(car)) {
-            System.out.println("test");
-        } else if (isPairType(cdr)) {
-            return "(" + car.toString(true) + " " + cdr.toString(false) + ")";
+        StringBuilder result = new StringBuilder();
+        result.append("(");
+        result.append(car.toString(true));
+        if (isPairType(cdr)) {
+            result.append(" ");
+        } else {
+            result.append(" . ");
         }
-        return "(" + car.toString(true) + " . " + cdr.toString(false) + ")";
+        result.append(cdr.toString(false));
+        result.append(")");
+        return result.toString();
     }
 
     @Override
     public String toString(boolean hasParen) {
-        if (isPairType(car) || isPairType(cdr)) {
-            if (hasParen) {
-                return "(" + car.toString(true) + " " + cdr.toString(false) + ")";
-            } else {
-                return car.toString(true) + " " + cdr.toString(false);
-            }
-        } else {
-            if (hasParen) {
-                return "(" + car.toString(true) + " . " + cdr.toString(false) + ")";
-            } else {
-                return car.toString(true) + " . " + cdr.toString(false);
-            }
+        StringBuilder result = new StringBuilder();
+        if (hasParen) {
+            result.append("(");
         }
-    }
-
-    public Type getCar() {
-        return car;
-    }
-
-    public Type getCdr() {
-        return cdr;
+        result.append(car.toString(true));
+        if (isPairType(car) || isPairType(cdr)) {
+            result.append(" ");
+        } else {
+            result.append(" . ");
+        }
+        result.append(cdr.toString(false));
+        if (hasParen) {
+            result.append(")");
+        }
+        return result.toString();
     }
 }

@@ -5,14 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ulme.antlr</groupId>
-    <artifactId>scheme</artifactId>
+    <artifactId>scheme-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <antlr4.visitor>true</antlr4.visitor>
         <antlr4.listener>false</antlr4.listener>
     </properties>
+
+    <modules>
+        <module>application</module>
+        <module>component-tests</module>
+    </modules>
 
     <dependencies>
         <dependency>

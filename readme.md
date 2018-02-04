@@ -22,12 +22,19 @@ Function                    | Semantic
   mvn compile -PPrintToken
 
 # ToDo
+* Make Maven multi project
+* Move component tests to a second Subproject
+* Add car, cdr, list
+* Move PrintTest to the component tests and use print function in there
+* Check in show readme.md in Github
+* Read files from command line and from tests
+
 * Add second visitor to collect all function definitions
 * Add type for a function (e.g. FunctionType)
 * `display` should use print not println
 * Add **newline** - print out a new line
 * Add comments to the grammar
-* Add conditions su as: **<,>,<=,>=,and,or,not**
+* Add conditions such as: **<,>,<=,>=,and,or,not**
 * Define and execute a file for the standard functions such as **abs**, **map** and so on
 * Add **list** - define a list
   ```

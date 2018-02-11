@@ -7,16 +7,18 @@ import org.antlr.v4.runtime.Token;
 
 import java.io.PrintStream;
 import java.util.List;
+import java.util.Stack;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 
 public class SchemeTreeVisitor extends SchemeBaseVisitor<Type> {
 
-    private Environment env = new Environment();
+    private Stack<Environment> environments = new Stack<>();
     private PrintStream out;
 
     public SchemeTreeVisitor(PrintStream out) {
         this.out = out;
+        environments.push(new Environment());
     }
 
     @Override
@@ -35,16 +37,13 @@ public class SchemeTreeVisitor extends SchemeBaseVisitor<Type> {
     @Override
     public Type visitFunctionCall(SchemeParser.FunctionCallContext ctx) {
         String functionName = getFunctionName(ctx.funcName.getText(), ctx.arguments.size());
-        SchemeParser.FunctionDefinitionContext functionDefinitionContext = env.getFunction(functionName);
+        SchemeParser.FunctionDefinitionContext functionDefinitionContext = environments.peek().getFunction(functionName);
         if (functionDefinitionContext == null) {
             throw new UndefinedFunctionException(ctx.funcName, functionName);
         }
 
-        //save global variables map
-        Environment oldEnv = env;
-
-        // create a local variables map
-        env = new Environment();
+        // push a new environment
+        environments.push(new Environment());
 
         // set variables from function call
         List<SchemeParser.ExpressionContext> expressions = ctx.arguments;
@@ -53,13 +52,13 @@ public class SchemeTreeVisitor extends SchemeBaseVisitor<Type> {
             String variableName = declarations.get(i)
                                               .getText();
             Type value = visit(expressions.get(i));
-            env.putVariable(variableName, value);
+            environments.peek().putVariable(variableName, value);
         }
 
         Type result = visit(functionDefinitionContext.statements);
 
-        // set back global variables map
-        env = oldEnv;
+        // pop the environment, go back to the old environment
+        environments.pop();
 
         return result;
     }
@@ -67,10 +66,10 @@ public class SchemeTreeVisitor extends SchemeBaseVisitor<Type> {
     @Override
     public Type visitFunctionDefinition(SchemeParser.FunctionDefinitionContext ctx) {
         String functionName = getFunctionName(ctx.funcName.getText(), ctx.paramNames.size());
-        if (env.containsFunction(functionName)) {
+        if (environments.peek().containsFunction(functionName)) {
             throw new FunctionAlreadyDefinedException(ctx.funcName, functionName);
         }
-        env.putFunction(functionName, ctx);
+        environments.peek().putFunction(functionName, ctx);
 
         return null;
     }
@@ -78,20 +77,20 @@ public class SchemeTreeVisitor extends SchemeBaseVisitor<Type> {
     @Override
     public Type visitIdentifier(SchemeParser.IdentifierContext ctx) {
         String varName = ctx.varName.getText();
-        if (!env.containsVariable(varName)) {
+        if (!environments.peek().containsVariable(varName)) {
             throw new UndeclaredVariableException(ctx.varName);
         }
-        return env.getVariable(varName);
+        return environments.peek().getVariable(varName);
     }
 
     @Override
     public Type visitVariableDefinition(SchemeParser.VariableDefinitionContext ctx) {
         String varName = ctx.varName.getText();
-        if (env.containsVariable(varName)) {
+        if (environments.peek().containsVariable(varName)) {
             throw new VariableAlreadyDefinedException(ctx.varName);
         }
         Type varValue = visit(ctx.expression());
-        env.putVariable(varName, varValue);
+        environments.peek().putVariable(varName, varValue);
         return null;
     }
 

@@ -2,22 +2,15 @@ package com.ulme.scheme.interpreter;
 
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.junit.Assert.assertEquals;
 
 public class CommentTest {
 
     @Test
     public void createList() throws Exception {
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        SchemeEvaluator schemeEvaluator = new SchemeEvaluator();
+        String result = schemeEvaluator.evaluateExpression("(display 1); This is a comment and will be skipped");
 
-        try (PrintStream printStream = new PrintStream(bout)) {
-            SchemeEvaluator schemeEvaluator = new SchemeEvaluator(printStream);
-            schemeEvaluator.evaluateExpression("(display 1); This is a comment and will be skipped");
-        }
-
-        assertEquals("1", bout.toString());
+        assertEquals("1", result);
     }
 }

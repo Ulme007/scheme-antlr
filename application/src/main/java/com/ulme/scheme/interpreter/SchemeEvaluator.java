@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
@@ -13,8 +14,12 @@ public class SchemeEvaluator {
 
     private PrintStream printStream;
 
-    public SchemeEvaluator(PrintStream printStream) {
+    private SchemeEvaluator(PrintStream printStream) {
         this.printStream = printStream;
+    }
+
+    SchemeEvaluator() {
+        this(System.out);
     }
 
     Type evaluateFile(String filename) throws IOException {
@@ -22,7 +27,18 @@ public class SchemeEvaluator {
         return evaluate(antlrInputStream);
     }
 
-    public Type evaluateExpression(String expression) {
+    String evaluateExpression(String expression) {
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+
+        try (PrintStream printStream = new PrintStream(bout)) {
+            SchemeEvaluator schemeEvaluator = new SchemeEvaluator(printStream);
+            schemeEvaluator.evaluateExpressionGetType(expression);
+        }
+
+        return bout.toString();
+    }
+
+    private Type evaluateExpressionGetType(String expression) {
         ANTLRInputStream antlrInputStream = new ANTLRInputStream(expression);
         return evaluate(antlrInputStream);
     }

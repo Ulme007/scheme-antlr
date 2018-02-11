@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -16,12 +14,12 @@ public class FunctionTest {
 
     private String description;
     private String expression;
-    private String result;
+    private String expectedResult;
 
-    public FunctionTest(String description, String expression, String result) {
+    public FunctionTest(String description, String expression, String expectedResult) {
         this.description = description;
         this.expression = expression;
-        this.result = result;
+        this.expectedResult = expectedResult;
     }
 
     @Parameterized.Parameters
@@ -43,13 +41,9 @@ public class FunctionTest {
 
     @Test
     public void test() throws Exception {
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        SchemeEvaluator schemeEvaluator = new SchemeEvaluator();
+        String result = schemeEvaluator.evaluateExpression(expression);
 
-        try (PrintStream printStream = new PrintStream(bout)) {
-            SchemeEvaluator schemeEvaluator = new SchemeEvaluator(printStream);
-            schemeEvaluator.evaluateExpression(expression);
-        }
-
-        assertEquals(description, result, bout.toString());
+        assertEquals(description, expectedResult, result);
     }
 }

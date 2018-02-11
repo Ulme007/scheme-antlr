@@ -9,7 +9,7 @@ public class FunctionErrorTest {
     @Test
     public void throw_exception_if_variable_is_not_defined() {
         assertThatThrownBy(() -> {
-                    SchemeEvaluator schemeEvaluator = new SchemeEvaluator(null);
+                    SchemeEvaluator schemeEvaluator = new SchemeEvaluator();
                     schemeEvaluator.evaluateExpression(
                             "(sum 1 2)"
                     );
@@ -21,7 +21,7 @@ public class FunctionErrorTest {
     @Test
     public void throw_exception_if_function_is_already_defined() {
         assertThatThrownBy(() -> {
-                    SchemeEvaluator schemeEvaluator = new SchemeEvaluator(null);
+                    SchemeEvaluator schemeEvaluator = new SchemeEvaluator();
                     schemeEvaluator.evaluateExpression(
                             "(define (sum x1 x2)(+ x1 x2))" +
                                     "(define (sum x1 x2)(+ x1 x2))"

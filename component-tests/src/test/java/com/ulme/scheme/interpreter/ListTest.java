@@ -2,22 +2,15 @@ package com.ulme.scheme.interpreter;
 
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.junit.Assert.assertEquals;
 
 public class ListTest {
 
     @Test
     public void createList() throws Exception {
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        SchemeEvaluator schemeEvaluator = new SchemeEvaluator();
+        String result = schemeEvaluator.evaluateExpression("(display (list 1 2 3))");
 
-        try (PrintStream printStream = new PrintStream(bout)) {
-            SchemeEvaluator schemeEvaluator = new SchemeEvaluator(printStream);
-            schemeEvaluator.evaluateExpression("(display (list 1 2 3))");
-        }
-
-        assertEquals("(1 2 3)", bout.toString());
+        assertEquals("(1 2 3)", result);
     }
 }

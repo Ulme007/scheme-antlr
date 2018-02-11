@@ -14,17 +14,17 @@ Function                    | Semantic
 (define size 2)             | Define the variable `size` with the value 2 (print out with (display size))
 (define (square x) (* x x)) | Define the function `square`. Execute this with (square 2)
 
-# Comments
+## Comments
 ';' Comment to the end of the line
 
-# Development
+## Development
 
 * Show the parsed Antlr tree of file 'src/main/resources/code.demo'.
   mvn compile -PShowTree
 * Print out the parsed tokens of file 'src/main/resources/code.demo'.
   mvn compile -PPrintToken
 
-# ToDo
+## ToDo
 * Check in show readme.md in Github
 * Move component tests to a second Subproject
 * Add car, cdr

@@ -11,8 +11,11 @@ Function                    | Semantic
 --------------------------- | ----------------------------
 (display 1)                 | Print '1' without new line 
 (newline)                   | Print out a new line       
-(define size 2)             | Define the variable `size` with the value 2
+(define size 2)             | Define the variable `size` with the value 2 (print out with (display size))
 (define (square x) (* x x)) | Define the function `square`. Execute this with (square 2)
+
+# Comments
+';' Comment to the end of the line
 
 # Development
 
@@ -22,14 +25,12 @@ Function                    | Semantic
   mvn compile -PPrintToken
 
 # ToDo
-* Make Maven multi project
-* Move component tests to a second Subproject
-* Add car, cdr, list
-* Move PrintTest to the component tests and use print function in there
 * Check in show readme.md in Github
+* Move component tests to a second Subproject
+* Add car, cdr
+* Add a REPL
 * Read files from command line and from tests
 
-* Add second visitor to collect all function definitions
 * Add type for a function (e.g. FunctionType)
 * `display` should use print not println
 * Add **newline** - print out a new line
@@ -59,3 +60,6 @@ Function                    | Semantic
   ```
     (length (list (1 2 3)))
   ```
+
+* Possible ToDo's
+* Add second visitor to collect all function definitions

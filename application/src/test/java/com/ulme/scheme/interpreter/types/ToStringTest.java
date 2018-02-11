@@ -1,4 +1,4 @@
-package com.ulme.antlr.scheme.types;
+package com.ulme.scheme.interpreter.types;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

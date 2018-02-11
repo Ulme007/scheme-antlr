@@ -1,8 +1,8 @@
-package com.ulme.antlr.scheme;
+package com.ulme.scheme.interpreter;
 
-import com.ulme.antlr.scheme.types.DecimalType;
-import com.ulme.antlr.scheme.types.ListType;
-import com.ulme.antlr.scheme.types.Type;
+import com.ulme.scheme.interpreter.types.DecimalType;
+import com.ulme.scheme.interpreter.types.ListType;
+import com.ulme.scheme.interpreter.types.Type;
 import org.antlr.v4.runtime.Token;
 
 import java.io.PrintStream;
@@ -15,7 +15,7 @@ public class SchemeTreeVisitor extends SchemeBaseVisitor<Type> {
     private Environment env = new Environment();
     private PrintStream out;
 
-    SchemeTreeVisitor(PrintStream out) {
+    public SchemeTreeVisitor(PrintStream out) {
         this.out = out;
     }
 

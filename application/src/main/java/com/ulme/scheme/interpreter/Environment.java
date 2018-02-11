@@ -1,6 +1,6 @@
-package com.ulme.antlr.scheme;
+package com.ulme.scheme.interpreter;
 
-import com.ulme.antlr.scheme.types.Type;
+import com.ulme.scheme.interpreter.types.Type;
 
 import java.util.HashMap;
 import java.util.Map;

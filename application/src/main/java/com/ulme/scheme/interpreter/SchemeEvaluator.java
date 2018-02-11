@@ -1,6 +1,6 @@
-package com.ulme.antlr.scheme;
+package com.ulme.scheme.interpreter;
 
-import com.ulme.antlr.scheme.types.Type;
+import com.ulme.scheme.interpreter.types.Type;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -13,7 +13,7 @@ public class SchemeEvaluator {
 
     private PrintStream printStream;
 
-    SchemeEvaluator(PrintStream printStream) {
+    public SchemeEvaluator(PrintStream printStream) {
         this.printStream = printStream;
     }
 
@@ -22,7 +22,7 @@ public class SchemeEvaluator {
         return evaluate(antlrInputStream);
     }
 
-    Type evaluateExpression(String expression) {
+    public Type evaluateExpression(String expression) {
         ANTLRInputStream antlrInputStream = new ANTLRInputStream(expression);
         return evaluate(antlrInputStream);
     }

@@ -1,4 +1,4 @@
-package com.ulme.antlr.scheme;
+package com.ulme.scheme.interpreter;
 
 import org.antlr.v4.runtime.Token;
 

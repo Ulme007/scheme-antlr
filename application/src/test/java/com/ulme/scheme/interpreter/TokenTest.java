@@ -1,7 +1,6 @@
-package com.ulme.antlr.scheme;
+package com.ulme.scheme.interpreter;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.junit.Test;
@@ -26,10 +25,15 @@ public class TokenTest {
         // then
         List<Token> tokens = tokenStream.getTokens();
         assertEquals(5, tokens.size());
-        assertEquals(SchemeLexer.LPAREN, tokens.get(0).getType());
-        assertEquals(SchemeLexer.LIST, tokens.get(1).getType());
-        assertEquals(SchemeLexer.IDENTIFIER, tokens.get(2).getType());
-        assertEquals(SchemeLexer.RPAREN, tokens.get(3).getType());
-        assertEquals(SchemeLexer.EOF, tokens.get(4).getType());
+        assertEquals(SchemeLexer.LPAREN, tokens.get(0)
+                                               .getType());
+        assertEquals(SchemeLexer.LIST, tokens.get(1)
+                                             .getType());
+        assertEquals(SchemeLexer.IDENTIFIER, tokens.get(2)
+                                                   .getType());
+        assertEquals(SchemeLexer.RPAREN, tokens.get(3)
+                                               .getType());
+        assertEquals(SchemeLexer.EOF, tokens.get(4)
+                                            .getType());
     }
 }

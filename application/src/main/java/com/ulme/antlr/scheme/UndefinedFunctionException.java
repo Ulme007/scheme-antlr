@@ -2,7 +2,7 @@ package com.ulme.antlr.scheme;
 
 import org.antlr.v4.runtime.Token;
 
-public class UndefinedFunctionException extends CompileException {
+public class UndefinedFunctionException extends InterpreterException {
 
     private String functionName;
 

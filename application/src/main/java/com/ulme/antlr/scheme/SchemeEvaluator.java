@@ -33,6 +33,6 @@ public class SchemeEvaluator {
         SchemeParser parser = new SchemeParser(tokenStream);
 
         ParseTree parseTree = parser.program();
-        return new MyVisitor(printStream).visit(parseTree);
+        return new SchemeTreeVisitor(printStream).visit(parseTree);
     }
 }

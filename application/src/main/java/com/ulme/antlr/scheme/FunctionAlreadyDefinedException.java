@@ -2,7 +2,7 @@ package com.ulme.antlr.scheme;
 
 import org.antlr.v4.runtime.Token;
 
-public class FunctionAlreadyDefinedException extends CompileException {
+public class FunctionAlreadyDefinedException extends InterpreterException {
 
     private String functionName;
 
@@ -15,5 +15,4 @@ public class FunctionAlreadyDefinedException extends CompileException {
     public String getMessage() {
         return getLine() + ":" + getColumn() + " function already defined: <" + functionName + ">";
     }
-
 }

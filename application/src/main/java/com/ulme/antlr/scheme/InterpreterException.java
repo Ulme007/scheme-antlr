@@ -2,12 +2,12 @@ package com.ulme.antlr.scheme;
 
 import org.antlr.v4.runtime.Token;
 
-class CompileException extends RuntimeException {
+class InterpreterException extends RuntimeException {
 
     private final int line;
     private final int column;
 
-    CompileException(Token token) {
+    InterpreterException(Token token) {
         line = token.getLine();
         column = token.getCharPositionInLine();
     }

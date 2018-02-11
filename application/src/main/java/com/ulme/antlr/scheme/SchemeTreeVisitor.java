@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 
-public class MyVisitor extends SchemeBaseVisitor<Type> {
+public class SchemeTreeVisitor extends SchemeBaseVisitor<Type> {
 
     private Environment env = new Environment();
     private PrintStream out;
 
-    MyVisitor(PrintStream out) {
+    SchemeTreeVisitor(PrintStream out) {
         this.out = out;
     }
 

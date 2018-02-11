@@ -2,7 +2,7 @@ package com.ulme.antlr.scheme;
 
 import org.antlr.v4.runtime.Token;
 
-public class UndeclaredVariableException extends CompileException {
+public class UndeclaredVariableException extends InterpreterException {
 
     private String varName;
 

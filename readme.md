@@ -25,8 +25,6 @@ Function                    | Semantic
   mvn compile -PPrintToken
 
 ## ToDo
-* Check in show readme.md in Github
-* Move component tests to a second Subproject
 * Add car, cdr
 * Add a REPL
 * Read files from command line and from tests

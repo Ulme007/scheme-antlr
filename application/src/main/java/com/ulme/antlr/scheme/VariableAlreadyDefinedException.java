@@ -2,7 +2,7 @@ package com.ulme.antlr.scheme;
 
 import org.antlr.v4.runtime.Token;
 
-public class VariableAlreadyDefinedException extends CompileException {
+public class VariableAlreadyDefinedException extends InterpreterException {
 
     private final String varName;
 

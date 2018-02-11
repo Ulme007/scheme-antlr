@@ -8,16 +8,16 @@ public class DecimalType extends Type {
 
     private final BigDecimal value;
 
-    public DecimalType(BigDecimal value) {
-        this.value = value;
-    }
-
-    public DecimalType(int value) {
-        this.value = new BigDecimal(value);
-    }
-
     public DecimalType(String value) {
         this.value = new BigDecimal(value);
+    }
+
+    DecimalType(int value) {
+        this.value = new BigDecimal(value);
+    }
+
+    private DecimalType(BigDecimal value) {
+        this.value = value;
     }
 
     public DecimalType add(DecimalType other) {
@@ -39,10 +39,5 @@ public class DecimalType extends Type {
     @Override
     public String toString() {
         return String.valueOf(value);
-    }
-
-    @Override
-    public String toString(boolean hasParen) {
-        return toString();
     }
 }

@@ -2,8 +2,10 @@ package com.ulme.scheme.interpreter.types;
 
 public abstract class Type {
 
-    public Type() {
+    Type() {
     }
 
-    public abstract String toString(boolean hasParen);
+    public String toString(boolean hasParen) {
+        return toString();
+    }
 }

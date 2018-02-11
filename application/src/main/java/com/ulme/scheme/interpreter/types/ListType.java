@@ -21,9 +21,4 @@ public class ListType extends Type {
                                 .collect(Collectors.joining(" "));
         return "(" + values + ")";
     }
-
-    @Override
-    public String toString(boolean hasParen) {
-        return toString();
-    }
 }

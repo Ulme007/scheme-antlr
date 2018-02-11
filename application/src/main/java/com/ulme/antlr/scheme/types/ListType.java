@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 public class ListType extends Type {
     private List<Type> elements = new ArrayList<>();
+
     public ListType() {
     }
 
@@ -15,7 +16,9 @@ public class ListType extends Type {
 
     @Override
     public String toString() {
-        String values = elements.stream().map(Object::toString).collect(Collectors.joining(" "));
+        String values = elements.stream()
+                                .map(Object::toString)
+                                .collect(Collectors.joining(" "));
         return "(" + values + ")";
     }
 
